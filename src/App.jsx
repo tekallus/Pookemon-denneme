@@ -405,34 +405,32 @@ function updatePosition() {
     let newXPosition = prevPookachu.xPosition;
     let newYPosition = prevPookachu.yPosition;
 
-    // Pookachu'nun hareket yönüne göre yeni pozisyonunu hesapla
-    switch (prevPookachu.direction) {
-      case 'up':
-        // Yukarı hareket kontrolü
-        if (prevPookachu.yPosition > boundaries.yAxis.min) {
-          newYPosition = prevPookachu.yPosition - 1;
-        }
-        break;
-      case 'down':
-        // Aşağı hareket kontrolü
-        if (prevPookachu.yPosition < boundaries.yAxis.max) {
-          newYPosition = prevPookachu.yPosition + 1;
-        }
-        break;
-      case 'left':
-        // Sol hareket kontrolü
-        if (prevPookachu.xPosition > boundaries.xAxis.min) {
-          newXPosition = prevPookachu.xPosition - 1;
-        }
-        break;
-      case 'right':
-        // Sağ hareket kontrolü
-        if (prevPookachu.xPosition < boundaries.xAxis.max) {
-          newXPosition = prevPookachu.xPosition + 1;
-        }
-        break;
-      default:
-        break;
+    // Eğer Pookachu ilerlemek istiyorsa ve sınırları aşmıyorsa, ilerlemesini sağla
+    if (prevPookachu.wantsToMove) {
+      switch (prevPookachu.direction) {
+        case 'up':
+          if (prevPookachu.yPosition > boundaries.yAxis.min) {
+            newYPosition = prevPookachu.yPosition - 1;
+          }
+          break;
+        case 'down':
+          if (prevPookachu.yPosition < boundaries.yAxis.max) {
+            newYPosition = prevPookachu.yPosition + 1;
+          }
+          break;
+        case 'left':
+          if (prevPookachu.xPosition > boundaries.xAxis.min) {
+            newXPosition = prevPookachu.xPosition - 1;
+          }
+          break;
+        case 'right':
+          if (prevPookachu.xPosition < boundaries.xAxis.max) {
+            newXPosition = prevPookachu.xPosition + 1;
+          }
+          break;
+        default:
+          break;
+      }
     }
 
     // Yeni pozisyonu döndür
